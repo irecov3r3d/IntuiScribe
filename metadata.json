@@ -1,0 +1,8 @@
+{
+  "name": "IntuiScribe Therapy AI",
+  "description": "Revolutionary AI therapy platform with real-time emotion tracking, RAG-powered knowledge base, and historical voice chatterbots.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
