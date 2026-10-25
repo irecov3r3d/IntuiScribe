@@ -134,7 +134,8 @@ export default function TherapyChat({ settings }: { settings: AppSettings }) {
           <select 
             value={selectedVoice.id}
             onChange={(e) => setSelectedVoice(availableVoices.find(v => v.id === e.target.value) || availableVoices[0])}
-            className="bg-slate-900 border-2 border-slate-700 rounded-lg px-2 py-1 text-xs font-bold text-slate-300 outline-none focus:border-indigo-500"
+            className="bg-slate-900 border-2 border-slate-700 rounded-lg px-2 py-1 text-xs font-bold text-slate-300 outline-none focus:border-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-500"
+            aria-label="Select therapy voice"
           >
             {availableVoices.map(v => (
               <option key={v.id} value={v.id}>{v.name}</option>
@@ -142,7 +143,9 @@ export default function TherapyChat({ settings }: { settings: AppSettings }) {
           </select>
           <button 
             onClick={() => setIsVoiceEnabled(!isVoiceEnabled)}
-            className={`p-2 rounded-lg border-2 border-slate-700 transition-colors ${isVoiceEnabled ? 'bg-indigo-600/20 text-indigo-400' : 'text-slate-500'}`}
+            className={`p-2 rounded-lg border-2 border-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 ${isVoiceEnabled ? 'bg-indigo-600/20 text-indigo-400' : 'text-slate-500'}`}
+            aria-label={isVoiceEnabled ? 'Disable voice' : 'Enable voice'}
+            title={isVoiceEnabled ? 'Disable voice' : 'Enable voice'}
           >
             {isVoiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
           </button>
@@ -192,12 +195,15 @@ export default function TherapyChat({ settings }: { settings: AppSettings }) {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder={`Message ${selectedVoice.name}...`}
-            className="flex-1 bg-slate-900 border-2 border-slate-700 rounded-xl px-4 py-3 text-sm font-medium outline-none focus:border-indigo-500 transition-colors"
+            className="flex-1 bg-slate-900 border-2 border-slate-700 rounded-xl px-4 py-3 text-sm font-medium outline-none focus:border-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors"
+            aria-label="Message input"
           />
           <button
             onClick={handleSend}
             disabled={isLoading || !input.trim()}
-            className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed p-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all"
+            className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed p-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all focus-visible:ring-2 focus-visible:ring-indigo-500"
+            aria-label="Send message"
+            title={isLoading ? 'Reflecting...' : (!input.trim() ? 'Type a message to send' : 'Send message')}
           >
             <Send className="w-5 h-5" />
           </button>
